@@ -5,9 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require("express-session")
 const passport = require("passport")
-const LocalStrategy = require("passport-local").Strategy
 const mongoose = require("mongoose")
-const bcrypt = require("bcryptjs")
 require("dotenv").config()
 
 const mongoDb = process.env.LOG_IN
@@ -17,6 +15,7 @@ db.on("error", console.error.bind(console, "mongo connection error"))
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const catalogRouter = require("./routes/catalog")
 
 const app = express();
 
@@ -32,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
