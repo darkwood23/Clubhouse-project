@@ -42,7 +42,7 @@ exports.message_create_get = asyncHandler(async (req, res, next ) => {
 })
 
 exports.message_create_post = [
-    body("title", "The message can't be empty")
+    body("text", "The message can't be empty")
         .trim()
         .isLength({min: 1})
         .escape(),
@@ -64,6 +64,7 @@ exports.message_create_post = [
             return
         } else {
             await message.save()
+            res.redirect("/")
         }
     })
 ]
@@ -103,7 +104,7 @@ exports.message_update_get = asyncHandler( async (req, res, next) => {
 })
 
 exports.message_update_post = [
-    body("title", "Title must not be empty")
+    body("text", "Text must not be empty")
         .trim()
         .isLength({min: 1})
         .escape(),
@@ -126,6 +127,7 @@ exports.message_update_post = [
             return
         } else {
             await Message.findByIdAndUpdate(req.params.id, message, {})
+            res.redirect("/")
         }
     })
 ]

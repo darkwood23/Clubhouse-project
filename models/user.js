@@ -5,7 +5,6 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
     first_name: { type: String, required: true },
     second_name: { type: String, required: true},
-    messages: [{ type: Schema.Types.ObjectId, required: true, ref: "Message"}],
     user_joined: { type: Date, required: true},
     username: {type: String, required: true},
     password: {type: String, required: true},
