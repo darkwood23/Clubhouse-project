@@ -1,6 +1,6 @@
 const User = require("../models/user")
-const Message = require("../models/message")
 const { genPassword } = require("../lib/passwordUtils")
+const passport = require("passport")
 
 const { body, validationResult } = require("express-validator")
 const asyncHandler = require("express-async-handler")
@@ -67,9 +67,11 @@ exports.sign_up_post = [
 ]
 
 exports.log_in_get = asyncHandler( async (req, res, next) => {
-
+    res.render("user_log_in", {
+        title: "Log In"
+    })
 })
 
 exports.log_in_post = asyncHandler( async (req, res, next) => {
-
+    passport.authenticate('local', { failureRedirect: '/login-faliure', successRedirect: '/login-success' } )
 })
