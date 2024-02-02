@@ -4,19 +4,21 @@ const router = express.Router()
 const message_controller = require("../controllers/messageController")
 const user_controller = require("../controllers/userController")
 
-app.get("/", (req, res, next) => { res.redirect("/log-in" ) } )
+const {isAdmin, isAuth} = require("../lib/adminCheck")
+
+app.get("/", (req, res, next) => { res.redirect("/message" ) } )
 
 // Message Controllers
 app.get("/message", message_controller.index)
 
-app.get("/message/create", message_controller.message_create_get)
-app.post("/message/create", message_controller.message_create_post)
+app.get("/message/create", isAuth, message_controller.message_create_get)
+app.post("/message/create", isAuth, message_controller.message_create_post)
 
-app.get("/message/id/delete", message_controller.message_delete_get)
-app.post("message/id/delete", message_controller.message_delete_post)
+app.get("/message/id/delete", isAdmin, message_controller.message_delete_get)
+app.post("message/id/delete", isAdmin, message_controller.message_delete_post)
 
-app.get("/message/id/update", message_controller.message_update_get)
-app.post("message/id/update", message_controller.message_update_post)
+app.get("/message/id/update", isAuth, message_controller.message_update_get)
+app.post("message/id/update", isAuth, message_controller.message_update_post)
 
 // User Controllers
 
