@@ -16,8 +16,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const catalogRouter = require("./routes/catalog")
 
-const MongoStore = require("connect-mongo")(session)
-
 const app = express();
 
 require("./routes/auth")
@@ -30,13 +28,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions' })
+// const sessionStore = new MongoStore({ mongooseConnection: db, collection: 'sessions' })
 
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  store: sessionStore,
+  // store: sessionStore,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24
   }
@@ -67,4 +65,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(3000)

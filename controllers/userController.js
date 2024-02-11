@@ -72,6 +72,4 @@ exports.log_in_get = asyncHandler( async (req, res, next) => {
     })
 })
 
-exports.log_in_post = asyncHandler( async (req, res, next) => {
-    passport.authenticate('local', { failureRedirect: '/login-faliure', successRedirect: '/login-success' } )
-})
+exports.log_in_post = passport.authenticate('local', { failureRedirect: '/login-faliure', successRedirect: '/login-success' } )

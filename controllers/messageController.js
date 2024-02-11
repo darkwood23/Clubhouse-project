@@ -33,6 +33,8 @@ exports.index = asyncHandler( async (req, res, next ) => {
         messages: allMessages,
         users: allUsers
     })
+
+    // res.send("Hello world")
 })
 
 exports.message_create_get = asyncHandler(async (req, res, next ) => {

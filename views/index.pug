@@ -8,7 +8,7 @@ block content
 
   each message in messages 
     ul 
-      li #{message} #{message.date_added}
+      li #{false=== admin ? '' : message.author} #{message} #{message.date_added}
 
   each user in users
     ul 
