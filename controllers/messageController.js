@@ -18,12 +18,10 @@ exports.index = asyncHandler( async (req, res, next ) => {
         numMessages,
         numUsers,
         allMessages,
-        allUsers
     ] = await Promise.all([
         Message.countDocuments({}).exec(),
         User.countDocuments({}).exec(),
         Message.find().exec(),
-        User.find().sort({username: 1}).exec()
     ])
 
     res.render("index", {
@@ -31,7 +29,6 @@ exports.index = asyncHandler( async (req, res, next ) => {
         no_messages: numMessages,
         no_users: numUsers,
         messages: allMessages,
-        users: allUsers
     })
 
     // res.send("Hello world")

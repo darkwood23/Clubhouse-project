@@ -6,19 +6,21 @@ const user_controller = require("../controllers/userController")
 
 const {isAdmin, isAuth} = require("../lib/adminCheck")
 
-router.get("/", (req, res, next) => { res.redirect("/message" ) } )
+// router.get("/", (req, res, next) => { 
+//     res.redirect("/message" ) 
+// } )
 
 // Message Controllers
-router.get("/message", message_controller.index)
+router.get("/", message_controller.index)
 
 router.get("/message/create", isAuth, message_controller.message_create_get)
 router.post("/message/create", isAuth, message_controller.message_create_post)
 
 router.get("/message/id/delete", isAdmin, message_controller.message_delete_get)
-router.post("message/id/delete", isAdmin, message_controller.message_delete_post)
+router.post("/message/id/delete", isAdmin, message_controller.message_delete_post)
 
 router.get("/message/id/update", isAuth, message_controller.message_update_get)
-router.post("message/id/update", isAuth, message_controller.message_update_post)
+router.post("/message/id/update", isAuth, message_controller.message_update_post)
 
 // User Controllers
 

@@ -1,6 +1,5 @@
 #! /usr/bin/env node
 require("dotenv").config()
-const bcrypt = require("bcryptjs")
 const {genPassword} = require("./lib/passwordUtils")
 
 console.log(
