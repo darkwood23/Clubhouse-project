@@ -2,6 +2,7 @@ const User = require("../models/user")
 const Message = require("../models/message")
 const { body, validationResult } = require("express-validator")
 const asyncHandler = require("express-async-handler");
+const { isAdmin } = require("../lib/adminCheck")
 
 function todayDate() {
     let today = new Date();
@@ -29,6 +30,7 @@ exports.index = asyncHandler( async (req, res, next ) => {
         no_messages: numMessages,
         no_users: numUsers,
         messages: allMessages,
+        admin: isAdmin
     })
 
     // res.send("Hello world")
@@ -41,7 +43,7 @@ exports.message_create_get = asyncHandler(async (req, res, next ) => {
 })
 
 exports.message_create_post = [
-    body("text", "The message can't be empty")
+    body("messagetext", "The message can't be empty")
         .trim()
         .isLength({min: 1})
         .escape(),

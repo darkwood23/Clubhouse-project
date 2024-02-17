@@ -28,6 +28,10 @@ router.get("/log-in", user_controller.log_in_get)
 router.post("/log-in", user_controller.log_in_post)
 
 router.get("/sign-up", user_controller.sign_up_get)
-router.post("/sign-up", user_controller.log_in_post)
+router.post("/sign-up", user_controller.sign_up_post)
+
+router.get("/login-faliure", (req, res, next) => {
+    res.send("Incorrect Password!")
+})
 
 module.exports = router

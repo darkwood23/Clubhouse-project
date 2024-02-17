@@ -30,10 +30,6 @@ exports.sign_up_post = [
         .trim()
         .isLength({min: 3})
         .escape(),
-    body("first_name", "First name must be atleast 3 characters")
-        .trim()
-        .isLength({min: 3})
-        .escape(),
     body("username", "Username must be atleast 3 characters")
         .trim()
         .isLength({min: 3})
@@ -46,8 +42,8 @@ exports.sign_up_post = [
         const errors = validationResult(req)
 
         const user = new User({
-            first_name: req.body.f_name,
-            second_name: req.body.l_name,
+            first_name: req.body.first_name,
+            second_name: req.body.last_name,
             user_joined: getTime(),
             username: req.body.username,
             password: genPassword(req.body.password),
@@ -61,7 +57,7 @@ exports.sign_up_post = [
             })
         } else {
             await user.save()
-            res.redirect("/messages")
+            res.redirect("/")
         }
     })
 ]
@@ -72,4 +68,4 @@ exports.log_in_get = asyncHandler( async (req, res, next) => {
     })
 })
 
-exports.log_in_post = passport.authenticate('local', { failureRedirect: '/login-faliure', successRedirect: '/login-success' } )
+exports.log_in_post = passport.authenticate('local', { failureRedirect: '/catalog/login-faliure', successRedirect: '/' } )

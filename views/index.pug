@@ -6,8 +6,8 @@ block content
   p Number of Messages: #{no_messages}
   p Number of Users: #{no_users}
 
-  each message in messages 
+  each message in messages
     ul 
       li 
-        p #{false=== admin ? message.author : ''} #{message.text} 
+        p #{false=== admin ? '' : message.author.first_name} #{message.text} 
         p #{message.date_added}

@@ -1,7 +1,7 @@
 const passport = require("passport")
 const User = require("../models/user")
 const LocalStrategy = require('passport-local').Strategy
-const validPassword = require("../lib/passwordUtils").checkPasswd
+const validPassword = require("../lib/passwordUtils").checkPassword
 
 const verifyCallback = (username, password, done) => {
     User.findOne({username: username})
