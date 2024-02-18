@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const MessageSchema = new Schema({
     text: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, required: true, ref: "User" },
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
     date_added: { type: Date, required: true }
 })
 

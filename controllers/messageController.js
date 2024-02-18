@@ -2,7 +2,7 @@ const User = require("../models/user")
 const Message = require("../models/message")
 const { body, validationResult } = require("express-validator")
 const asyncHandler = require("express-async-handler");
-const { isAdmin } = require("../lib/adminCheck")
+const { checkAdmin, isAdmin } = require("../lib/adminCheck")
 
 function todayDate() {
     let today = new Date();
@@ -15,6 +15,7 @@ function todayDate() {
 }
 
 exports.index = asyncHandler( async (req, res, next ) => {
+    let admin
     const [
         numMessages,
         numUsers,
@@ -22,15 +23,23 @@ exports.index = asyncHandler( async (req, res, next ) => {
     ] = await Promise.all([
         Message.countDocuments({}).exec(),
         User.countDocuments({}).exec(),
-        Message.find().exec(),
+        Message.find().populate("author").exec(),
     ])
+
+    if ( req.isAuthenticated() && (req.user.admin !== false)) {
+        admin = true
+    } else {
+        admin = false
+    }
+
+    // console.log(checkAdmin())
 
     res.render("index", {
         title: "Hacker's Den",
         no_messages: numMessages,
         no_users: numUsers,
         messages: allMessages,
-        admin: isAdmin
+        admin: admin
     })
 
     // res.send("Hello world")

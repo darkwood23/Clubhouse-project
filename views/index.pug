@@ -8,6 +8,8 @@ block content
 
   each message in messages
     ul 
-      li 
-        p #{false=== admin ? '' : message.author.first_name} #{message.text} 
-        p #{message.date_added}
+      li
+        div.message-block
+          p.date #{message.date_added}
+          h3.user #{true=== admin ? message.author.username : 'Anonymous User' } 
+          p.messageT #{message.text}

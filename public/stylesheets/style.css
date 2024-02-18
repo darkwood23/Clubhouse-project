@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.message-block {
+  background-color: rgb(194, 182, 126);
+  margin: 5px;
+  padding: 5px;
+}
