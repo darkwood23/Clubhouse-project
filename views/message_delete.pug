@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+    h1 #{title}
+
+    h2 Are you sure you want to delete this message?
+
+    form(method='POST', action='')
+        .form-group 
+            input#messageid.form-control(type='hidden', name='messageid', required='true', value=message._id)
+        button.btn.btn-primary(type='submit') Delete

@@ -32,8 +32,6 @@ exports.index = asyncHandler( async (req, res, next ) => {
         admin = false
     }
 
-    // console.log(checkAdmin())
-
     res.render("index", {
         title: "Hacker's Den",
         no_messages: numMessages,
@@ -41,8 +39,6 @@ exports.index = asyncHandler( async (req, res, next ) => {
         messages: allMessages,
         admin: admin
     })
-
-    // res.send("Hello world")
 })
 
 exports.message_create_get = asyncHandler(async (req, res, next ) => {
@@ -96,6 +92,7 @@ exports.message_delete_get = asyncHandler( async (req, res, next) => {
 
 exports.message_delete_post = asyncHandler( async (req, res, next) => {
     await Message.findByIdAndDelete(req.body.messageid).exec()
+    res.redirect("/")
 })
 
 exports.message_update_get = asyncHandler( async (req, res, next) => {
