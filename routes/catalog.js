@@ -30,6 +30,9 @@ router.post("/log-in", user_controller.log_in_post)
 router.get("/sign-up", user_controller.sign_up_get)
 router.post("/sign-up", user_controller.sign_up_post)
 
+router.get("/admin-pass", isAuth, user_controller.admin_pass_get)
+router.post("/admin-pass", isAuth, user_controller.admin_pass_post)
+
 router.get("/login-faliure", (req, res, next) => {
     res.send("Incorrect Password!")
 })

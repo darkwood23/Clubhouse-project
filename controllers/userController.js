@@ -4,6 +4,7 @@ const passport = require("passport")
 
 const { body, validationResult } = require("express-validator")
 const asyncHandler = require("express-async-handler")
+require("dotenv").config()
 
 const getTime = () => {
     let today = new Date();
@@ -69,3 +70,34 @@ exports.log_in_get = asyncHandler( async (req, res, next) => {
 })
 
 exports.log_in_post = passport.authenticate('local', { failureRedirect: '/catalog/login-faliure', successRedirect: '/' } )
+
+exports.admin_pass_get = asyncHandler( async (req, res, next) => {
+    res.render("admin_form", {
+        title: "Code to become an admin:"
+    })
+})
+
+exports.admin_pass_post = asyncHandler( async ( req, res, next ) => {
+    const password = process.env.ADMIN_PASS
+    const givenPassword = req.body.admincode
+    const userId = req.user._id
+
+    const user = await User.findById(userId)
+
+    const newUser = new User({
+        _id: user._id,
+        first_name: user.first_name,
+        second_name: user.second_name,
+        user_joined: user.user_joined,
+        username: user.username,
+        password: user.password,
+        admin: true
+    })
+
+    if(password === givenPassword) {
+        await User.findByIdAndUpdate(userId, newUser)
+        res.redirect("/")
+    } else {
+        res.redirect("/catalog/login-faliure")
+    }
+})

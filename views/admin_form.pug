@@ -1,0 +1,9 @@
+extends layout 
+
+block content 
+
+    h1 #{title}
+
+    form(method='POST', action='')
+        input#admincode(type='password', name='admincode')
+        button.btn.btn-primary(type='submit') Check
